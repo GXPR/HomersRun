@@ -9,7 +9,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
 :root {
-    --topKleur: #c41e3a;
+    /* --topKleur: #c41e3a; */
+   --topKleur: #000;
     --middelKleur: #ff7f00;
     --bodemkleur: #87ceeb;
     --gridAchtergrond: linear-gradient(var(--topKleur), var(--middelKleur), var(--bodemkleur));
