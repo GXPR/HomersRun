@@ -1,0 +1,341 @@
+/* Homer's Run v4 - Final polished version matching requested layout
+   - English texts
+   - Thin game UI for more play space
+   - Start & Game Over overlays with still hero images (homer_en_lisa.webp & homer_doh.webp)
+   - Left score | Right best score
+   - Mobile & Desktop dynamic instructions
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+:root {
+    --topKleur: #c41e3a;
+    --middelKleur: #ff7f00;
+    --bodemkleur: #87ceeb;
+    --gridAchtergrond: linear-gradient(var(--topKleur), var(--middelKleur), var(--bodemkleur));
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body {
+    overflow: hidden;
+    font-size: 16px;
+    background: #000;
+    touch-action: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    font-family: 'Lobster', cursive;
+}
+
+/* ========== OVERLAYS (Start + Game Over) ========== */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.start-overlay {
+    background: linear-gradient(rgba(196, 30, 58, 0.85), rgba(255, 127, 0, 0.75));
+}
+
+.game-over-overlay {
+    background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(60, 0, 0, 0.75));
+}
+
+.overlay-content {
+    text-align: center;
+    padding: 20px;
+    max-width: 420px;
+    width: 92%;
+}
+
+.hero-image {
+    max-width: 280px;
+    width: 75%;
+    height: auto;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.doh-image {
+    max-width: 240px;
+    filter: saturate(1.1);
+}
+
+.game-title {
+    font-size: 3.8rem;
+    color: #fff;
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7);
+    margin-bottom: 8px;
+    line-height: 1;
+}
+
+.game-over-title {
+    font-size: 3.2rem;
+    color: #ffeb3b;
+    margin-bottom: 20px;
+}
+
+.instruction-text {
+    font-size: 1.35rem;
+    color: #fff;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+    margin-bottom: 6px;
+}
+
+.sub-instruction {
+    font-size: 1.1rem;
+    color: #ffeb3b;
+    opacity: 0.95;
+    margin-bottom: 25px;
+}
+
+.restart-hint {
+    font-size: 0.95rem;
+    color: #ccc;
+    margin-top: 12px;
+    opacity: 0.8;
+}
+
+/* ========== IN-GAME UI (thin top bar) ========== */
+.game-ui {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 9vh;
+    background: rgba(196, 30, 58, 0.92);
+    z-index: 150;
+    display: none; /* hidden until game starts */
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+}
+
+.score-container {
+    display: flex;
+    width: 100%;
+    max-width: 520px;
+    justify-content: space-between;
+    padding: 0 25px;
+    align-items: center;
+}
+
+.score-left, .score-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.score-label {
+    font-size: 0.75rem;
+    color: #ffeb3b;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.score-value {
+    font-size: 1.85rem;
+    color: #fff;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    line-height: 1;
+}
+
+.score-value.best {
+    color: #00ff9d;
+}
+
+/* ========== GAME GRID ========== */
+.grid {
+    position: absolute;
+    top: 9vh;
+    height: 91vh;
+    width: 100%;
+    background-image: var(--gridAchtergrond);
+    overflow: hidden;
+    touch-action: none;
+}
+
+.homer {
+    position: absolute;
+    left: 50px;
+    width: 180px;
+    height: 180px;
+    background-image: url('afbeeldingen/runningHomer.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    bottom: 12px;
+    z-index: 5;
+    will-change: bottom;
+}
+
+.desert {
+    position: absolute;
+    z-index: 10;
+    bottom: 0;
+    background-image: url('afbeeldingen/simpsonGameBg.png');
+    background-repeat: repeat-x;
+    animation: slideright 420s infinite linear;
+    width: 100%;
+    height: 220px;
+    will-change: background-position;
+}
+
+@keyframes slideright {
+    from { background-position: 28000%; }
+    to { background-position: 0%; }
+}
+
+.lisa {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    background-image: url('afbeeldingen/dancingLisa.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    bottom: 8px;
+    z-index: 15;
+    will-change: left;
+}
+
+/* Game Over special Lisa */
+.game-over-lisa {
+    transform: scale(1.25);
+    z-index: 20;
+}
+
+/* ========== BUTTON ========== */
+.restartGame {
+    background: linear-gradient(145deg, #ffaa00, #00bfff);
+    color: #222;
+    font-weight: bold;
+    width: max-content;
+    padding: 16px 36px;
+    border: none;
+    border-radius: 14px;
+    font-size: 1.55rem;
+    font-family: 'Lobster', cursive;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.35);
+    cursor: pointer;
+    transition: all 0.1s ease;
+    margin-top: 15px;
+}
+
+.restartGame:hover {
+    transform: scale(1.06);
+    box-shadow: 0 7px 16px rgba(0,0,0,0.45);
+}
+
+.restartGame:active {
+    transform: scale(0.94);
+}
+
+/* ========== FINAL SCORES ON GAME OVER ========== */
+.final-scores {
+    display: flex;
+    justify-content: center;
+    gap: 45px;
+    margin: 15px 0 10px;
+}
+
+.final-score-item {
+    text-align: center;
+}
+
+.final-score-item .score-label {
+    font-size: 0.85rem;
+    color: #ffeb3b;
+}
+
+.final-score-item .score-value.final {
+    font-size: 2.1rem;
+    color: #fff;
+}
+
+/* ========== RESPONSIVE ========== */
+@media only screen and (max-width: 1024px) {
+    .game-title { font-size: 3.2rem; }
+    .hero-image { max-width: 240px; }
+    .instruction-text { font-size: 1.2rem; }
+    
+    .score-value { font-size: 1.6rem; }
+    .game-ui { height: 8vh; }
+    .grid { top: 8vh; height: 92vh; }
+}
+
+@media only screen and (max-width: 600px) {
+    .game-title { font-size: 2.6rem; }
+    .hero-image { max-width: 200px; margin-bottom: 10px; }
+    .instruction-text { font-size: 1.1rem; }
+    .sub-instruction { font-size: 1rem; }
+    
+    .overlay-content { padding: 15px; }
+    .final-scores { gap: 30px; }
+    .score-value.final { font-size: 1.7rem; }
+    
+    .homer { width: 130px; height: 130px; left: 30px; }
+    .lisa { width: 65px; height: 65px; }
+    .desert { height: 170px; }
+    
+    .game-ui { height: 7.5vh; }
+    .grid { top: 7.5vh; height: 92.5vh; }
+}
+
+/* Landscape mobile: prevent hero images and text from overflowing */
+@media only screen and (max-width: 900px) and (orientation: landscape) {
+    .overlay-content {
+        max-width: 95%;
+        padding: 10px 15px;
+    }
+    .hero-image {
+        max-width: 160px;
+        margin-bottom: 8px;
+    }
+    .doh-image {
+        max-width: 140px;
+    }
+    .game-title {
+        font-size: 2.4rem;
+        margin-bottom: 4px;
+    }
+    .game-over-title {
+        font-size: 2.1rem;
+    }
+    .instruction-text {
+        font-size: 1rem;
+        margin-bottom: 4px;
+    }
+    .sub-instruction {
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+    }
+    .restartGame {
+        padding: 12px 24px;
+        font-size: 1.3rem;
+        margin-top: 8px;
+    }
+    .final-scores {
+        gap: 25px;
+        margin: 10px 0 5px;
+    }
+    .final-score-item .score-value.final {
+        font-size: 1.6rem;
+    }
+}

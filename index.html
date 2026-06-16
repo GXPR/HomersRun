@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="homer.css">
+    <script src="homer.js" defer></script>
+    <title>Homer's Run</title>
+</head>
+<body>
+    <!-- START SCREEN OVERLAY -->
+    <div id="startScreen" class="overlay start-overlay">
+        <div class="overlay-content">
+            <img src="afbeeldingen/homer_en_lisa.webp" alt="Homer and Lisa" class="hero-image">
+            <h1 class="game-title">Homer's Run</h1>
+            <p id="startInstruction" class="instruction-text">
+                Press spacebar to start and jump
+            </p>
+            <p class="sub-instruction">Avoid the dancing Lisas!</p>
+        </div>
+    </div>
+
+    <!-- IN-GAME TOP BAR (thin, more space for game) -->
+    <div id="gameUI" class="game-ui">
+        <div class="score-container">
+            <div class="score-left">
+                <span class="score-label">SCORE</span>
+                <span id="scoreDisplay" class="score-value">0</span>
+            </div>
+            <div class="score-right">
+                <span class="score-label">BEST</span>
+                <span id="bestScoreDisplay" class="score-value best">0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- GAME AREA -->
+    <div class="grid">
+        <div id="desert" class="desert"></div>
+        <div class="homer"></div>
+    </div>
+
+    <!-- GAME OVER OVERLAY -->
+    <div id="gameOverScreen" class="overlay game-over-overlay">
+        <div class="overlay-content">
+            <img src="afbeeldingen/homer_doh.webp" alt="Homer Doh!" class="hero-image doh-image">
+            <h1 class="game-title game-over-title">Game Over</h1>
+            
+            <div class="final-scores">
+                <div class="final-score-item">
+                    <span class="score-label">YOUR SCORE</span>
+                    <span id="finalScore" class="score-value final">0</span>
+                </div>
+                <div class="final-score-item">
+                    <span class="score-label">BEST THIS SESSION</span>
+                    <span id="finalBestScore" class="score-value final best">0</span>
+                </div>
+            </div>
+
+            <button id="restartGame" class="restartGame" onclick="restartGame()">Play Again</button>
+            <p class="restart-hint">or press space / tap screen</p>
+        </div>
+    </div>
+
+    <audio id="homerDoh">
+        <source src="geluiden/Doh.mp3" type="audio/mpeg">
+    </audio>
+</body>
+</html>
